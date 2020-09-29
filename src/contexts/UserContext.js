@@ -5,8 +5,8 @@ export const UserContext = createContext();
 
 const UserContextProvider = (props) => {
     const [users, dispatch] = useReducer(userReducer, [
-        {firstName: 'Nimesha', lastName: "Gunawardana"},
-        {firstName: 'Jhon', lastName: "don"}
+        {id: 1, firstName: 'Nimesha', lastName: "Gunawardana"},
+        {id: 2, firstName: 'Jhon', lastName: "don"}
     ]);
   return (
     <UserContext.Provider value={{ users, dispatch }}>

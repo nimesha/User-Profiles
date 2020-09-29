@@ -7,7 +7,7 @@ const UserList = () => {
     <div className="user-list">
       <ul>
         {users.map(user => {
-            return <div>{user.firstName}, {user.lastName}</div>
+            return <div key={user.id}>{user.firstName}, {user.lastName}</div>
         })}
       </ul>
     </div>
