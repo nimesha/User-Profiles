@@ -6,7 +6,8 @@ export const userReducer = (state, action) => {
             return [...state, {
                 id: uuid(),
                 firstName: action.user.firstName,
-                lastName: action.user.lastName
+                lastName: action.user.lastName,
+                profilePic: action.user.profilePic,
             }
             ]
         case 'UPDATE_USER':

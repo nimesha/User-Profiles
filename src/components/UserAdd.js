@@ -24,6 +24,8 @@ const UserAdd = () => {
                 name="lastName"
                 ref={register}
             />
+            
+            <input ref={register} type="file" name="profilePic" />
 
             <input type="submit" />
         </form>
