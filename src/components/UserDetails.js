@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap'
-import CreateUserModal from './CreateUserModal';
 import moment from 'moment';
 import { UserContext } from '../contexts/UserContext';
 
@@ -19,7 +18,7 @@ const UserDetails = ({ user }) => {
             <td className="align-middle">{user.email}</td>
             <td className="align-middle">{user.address}</td>
             <td className="align-middle">
-                <button className="btn btn-info">Edit</button>
+                <button className="btn btn-info mr-1">Edit</button>
                 <button className="btn btn-danger" onClick={() => dispatch({ type: 'REMOVE_USER', id: user.id })}>Delete</button>
             </td>
         </tr>

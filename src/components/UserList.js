@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { Button } from 'react-bootstrap'
-import CreateUserModal from './CreateUserModal';
+import UserModal from './UserModal';
 import UserDetails from './UserDetails';
 
 const UserList = () => {
@@ -11,16 +11,17 @@ const UserList = () => {
         <>
 
             <div className="p-5">
-                <div className="row py-3   top-background">
+                <div className="row py-3 top-background">
                     <div className="col-12 px-0 ">
                         <h3 className="text-center text-white pt-2">Profiles List</h3>
 
                         <Button className="btn btn-primary btn-border-dark float-right mr-4" onClick={() => setModalShow(true)}>
                             Add New User
                         </Button>
-                        <CreateUserModal
+                        <UserModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
+                            type = {'create'}
                         />
                     </div>
                 </div>
