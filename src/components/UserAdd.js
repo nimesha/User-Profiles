@@ -1,30 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { UserContext } from '../contexts/UserContext';
 import imageCompress from '../helpers/imageCompress';
 import countryCode from '../helpers/CountryCodes.json';
 import uuid from 'uuid/v4';
-
 import { yupResolver } from '@hookform/resolvers';
-
-
 import schema from '../helpers/validation/user';
 
 
 
 const UserAdd = () => {
 
-
-
     const { dispatch } = useContext(UserContext);
-
+    const [messageState, setMessageState] = useState(false);
     const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(schema) });
+
+    useEffect(() => {
+        if (messageState) {
+            const timer = setTimeout(() => {
+                setMessageState(false)
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+
+    }, [messageState]);
 
     const onSubmit = user => {
 
         const addtoContext = async () => {
             try {
-                if (user.profilePic[0] ) {
+                if (user.profilePic[0]) {
                     const img = await imageCompress(user.profilePic[0]);
                     user.profilePic = img;
                 } else {
@@ -32,6 +37,7 @@ const UserAdd = () => {
                 }
                 user.contact = user.countryCode + user.contact;
                 dispatch({ type: 'ADD_USER', user });
+                setMessageState(true);
             } catch (error) {
                 alert("TODO : Need to add global error handler");
             }
@@ -43,7 +49,11 @@ const UserAdd = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row">
-
+                {messageState &&
+                    <div className="col-12">
+                        <div className="alert alert-success" role="alert">The user successfully added</div>
+                    </div>
+                }
                 <div className="col-12 col-lg-6">
                     <div className="form-group">
                         <label className="float-left">First name *</label>
@@ -131,7 +141,7 @@ const UserAdd = () => {
                             name="dob"
                             type="date"
                             ref={register}
-                            
+
                         />
                         <small className="form-text text-danger"> {errors.dob && errors.dob.message}</small>
                     </div>
@@ -148,10 +158,10 @@ const UserAdd = () => {
                             name="profilePic"
                             accept="image/png, image/jpeg" />
                         <label className="custom-file-label mt-lg-2">Upload Picture</label>
-                        
+
                         <small className="form-text text-danger"> {errors.profilePic && errors.profilePic.message}</small>
                     </div>
-                    
+
                 </div>
 
 
