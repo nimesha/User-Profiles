@@ -54,33 +54,6 @@ const UserList = () => {
                             )}
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-            {
-                users.length ? (
-                    <div classNameName="user-list">
-                        <ul>
-                            {users.map(user => {
-                                return <div key={user.id}>{user.firstName}, {user.lastName}
-                                    <div >
-                                        {user.profilePic ? <img src={`${user.profilePic}`} /> : ''}
-                                    </div>
-                                </div>
-                            })}
-                        </ul>
-                    </div>
-                ) : (
-                        <div classNameName="empty">There are no users to list.</div>
-                    )
-            }
         </>
     )
 }
