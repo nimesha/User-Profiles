@@ -25,7 +25,7 @@ const UserAdd = () => {
 
     }, [messageState]);
 
-    const onSubmit = user => {
+    const onSubmit = (user, e) => {
 
         const addtoContext = async () => {
             try {
@@ -38,6 +38,7 @@ const UserAdd = () => {
                 user.contact = user.countryCode + user.contact;
                 dispatch({ type: 'ADD_USER', user });
                 setMessageState(true);
+                e.target.reset()
             } catch (error) {
                 alert("TODO : Need to add global error handler");
             }
