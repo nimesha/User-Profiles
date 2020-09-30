@@ -2,10 +2,18 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { UserContext } from '../contexts/UserContext';
 import imageCompress from '../helpers/imageCompress';
-import countryCode from '../helpers/CountryCodes.json';
+import countryCodes from '../helpers/CountryCodes.json';
 import uuid from 'uuid/v4';
 import { yupResolver } from '@hookform/resolvers';
 import schema from '../helpers/validation/user';
+
+
+
+
+// const defaultValues = {
+//     countryCode :'+375'
+//   };
+
 
 
 
@@ -16,12 +24,15 @@ const UserUpdate = ({ user }) => {
     const { register, handleSubmit, errors, setValue } = useForm({ resolver: yupResolver(schema) });
 
     useEffect(() => {
-        console.log();
         setValue("firstName", user.firstName ? user.firstName : "");
         setValue("lastName", user.lastName ? user.lastName : "");
+        setValue("email", user.email ? user.email : "");
+        setValue("contact", user.contact ? user.contact : "");
+        setValue("countryCode", user.countryCode ? user.countryCode : "");
+        setValue("address", user.address ? user.address : "");
         setValue("id", user.id);
-
     }, []);
+
 
     useEffect(() => {
         if (messageState) {
@@ -43,10 +54,9 @@ const UserUpdate = ({ user }) => {
                 } else {
                     user.profilePic = '';
                 }
-                user.contact = user.countryCode + user.contact;
                 dispatch({ type: 'UPDATE_USER', user });
                 setMessageState(true);
-                e.target.reset()
+                setValue("countryCode", user.countryCode);
             } catch (error) {
                 alert("TODO : Need to add global error handler");
             }
@@ -60,7 +70,7 @@ const UserUpdate = ({ user }) => {
             <div className="row">
                 {messageState &&
                     <div className="col-12">
-                        <div className="alert alert-success" role="alert">The user successfully added</div>
+                        <div className="alert alert-success" role="alert">The user successfully Updated</div>
                     </div>
                 }
                 <div className="col-12 col-lg-6">
@@ -74,9 +84,6 @@ const UserUpdate = ({ user }) => {
                             {errors.firstName && errors.firstName.message}
                         </small>
                     </div>
-                </div>
-
-                <div className="col-12 col-lg-6">
                     <div className="form-group">
                         <label className="float-left">Last name</label>
                         <input
@@ -89,6 +96,14 @@ const UserUpdate = ({ user }) => {
                             {errors.lastName?.type === "maxLength" && "Your input exceed maxLength"}
                         </small>
                     </div>
+                </div>
+
+                <div className="col-12 col-lg-6">
+                    <div className="mt-3 text-center">
+                    {user.profilePic ? <img src={`${user.profilePic}`} className="" alt={user.firstName} /> : <img src="profile.png" className="" alt="avatar" />}
+                    </div>
+                   
+
                 </div>
 
                 <div className="col-12 col-lg-6">
@@ -124,7 +139,7 @@ const UserUpdate = ({ user }) => {
                                     className="form-control"
                                     name="countryCode"
                                     ref={register}>
-                                    {countryCode.map(cc =>
+                                    {countryCodes.map(cc =>
                                         <option key={uuid()} value={cc.dial_code}>{cc.name} {cc.dial_code}</option>
                                     )};
                          </select>
@@ -157,6 +172,7 @@ const UserUpdate = ({ user }) => {
                 </div>
 
                 <div className="col-12 col-lg-6">
+
                     <div className="custom-file mt-4">
                         <input
                             className="custom-file-input"
@@ -194,6 +210,7 @@ const UserUpdate = ({ user }) => {
                         className="form-control"
                         name="id"
                         ref={register()}
+                        type="hidden"
                     />
                     <input type="submit" value="Save User" className="btn btn-primary float-right" />
                 </div>
