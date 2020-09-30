@@ -24,8 +24,12 @@ const UserAdd = () => {
 
         const addtoContext = async () => {
             try {
-                const img = await imageCompress(user.profilePic[0]);
-                user.profilePic = img;
+                if (user.profilePic[0] ) {
+                    const img = await imageCompress(user.profilePic[0]);
+                    user.profilePic = img;
+                } else {
+                    user.profilePic = '';
+                }
                 user.contact = user.countryCode + user.contact;
                 dispatch({ type: 'ADD_USER', user });
             } catch (error) {
@@ -47,11 +51,8 @@ const UserAdd = () => {
                             className="form-control"
                             name="firstName"
                             ref={register()} />
-
-
                         <small className="form-text text-danger">
                             {errors.firstName && errors.firstName.message}
-                            {errors.firstName?.type === "maxLength" && "Your input exceed maxLength"}
                         </small>
                     </div>
                 </div>
@@ -86,8 +87,8 @@ const UserAdd = () => {
                                 }
                             })}
                         />
+                        <small className="form-text text-danger">{errors.email && errors.email.message}</small>
                     </div>
-                    <small className="form-text text-danger">{errors.email && errors.email.message}</small>
 
                 </div>
 
@@ -115,14 +116,10 @@ const UserAdd = () => {
                                     name="contact"
                                     ref={register({ maxLength: 15 })}
                                 />
+                                <small className="form-text text-danger">{errors.contact && errors.contact.message}</small>
                             </div>
 
                         </div>
-
-                        <small className="form-text text-danger">
-                            {errors.contact && errors.contact.message}
-                            {errors.contact?.type === "maxLength" && "Your input exceed maxLength"}
-                        </small>
                     </div>
                 </div>
 
@@ -134,6 +131,7 @@ const UserAdd = () => {
                             name="dob"
                             type="date"
                             ref={register}
+                            
                         />
                         <small className="form-text text-danger"> {errors.dob && errors.dob.message}</small>
                     </div>
@@ -143,13 +141,17 @@ const UserAdd = () => {
                     <div className="custom-file mt-4">
                         <input
                             className="custom-file-input"
-                            ref={register}
+                            ref={register({
+                                required: "Required"
+                            })}
                             type="file"
-                            name="profilePic" />
+                            name="profilePic"
+                            accept="image/png, image/jpeg" />
                         <label className="custom-file-label mt-lg-2">Upload Picture</label>
-                        <small className="mt-1">Maximum file size 3mb (png/jpeg)</small>
+                        
+                        <small className="form-text text-danger"> {errors.profilePic && errors.profilePic.message}</small>
                     </div>
-                    <small className="form-text text-danger"> {errors.profilePic && errors.profilePic.message}</small>
+                    
                 </div>
 
 
@@ -164,7 +166,6 @@ const UserAdd = () => {
                         />
                         <small className="form-text text-danger">
                             {errors.address && errors.address.message}
-                            {errors.address?.type === "maxLength" && "Your input exceed maxLength"}
                         </small>
                     </div>
                 </div>
