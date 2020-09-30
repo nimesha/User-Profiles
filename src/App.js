@@ -10,7 +10,6 @@ function App() {
     <div className="App">
       <UserContextProvider>
         <UserList />
-        <UserAdd />
       </UserContextProvider>
     </div>
   );
