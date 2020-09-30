@@ -14,7 +14,7 @@ const UserDetails = ({ user }) => {
             </td>
             <td className="align-middle">{user.firstName}</td>
             <td className="align-middle">{user.lastName}</td>
-            <td className="align-middle">{user.contact}</td>
+            <td className="align-middle">{user.countryCode}{user.contact}</td>
             <td className="align-middle">{moment(user.dob).format('DD/MM/YYYY')}</td>
             <td className="align-middle">{user.email}</td>
             <td className="align-middle">{user.address}</td>
