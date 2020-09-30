@@ -12,18 +12,15 @@ const CreateUserModal = (props) => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header closeButton >
                 <Modal.Title id="contained-modal-title-vcenter">
                     Add New User
           </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="px-5">
                
                 <UserAdd />
             </Modal.Body>
-            <Modal.Footer>
-
-            </Modal.Footer>
         </Modal>
     );
 }
