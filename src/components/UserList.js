@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { Button } from 'react-bootstrap'
 import UserModal from './UserModal';
 import UserDetails from './UserDetails';
 
 const UserList = () => {
+
     const { users } = useContext(UserContext);
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
+
     return (
         <>
 
@@ -14,14 +16,13 @@ const UserList = () => {
                 <div className="row py-3 top-background">
                     <div className="col-12 px-0 ">
                         <h3 className="text-center text-white pt-2">Profiles List</h3>
-
                         <Button className="btn btn-primary btn-border-dark float-right mr-4" onClick={() => setModalShow(true)}>
                             Add New User
                         </Button>
                         <UserModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
-                            type = {'create'}
+                            type={'create'}
                         />
                     </div>
                 </div>
@@ -45,7 +46,7 @@ const UserList = () => {
                                 <tbody>
                                     {users.map(user => {
 
-                                        return (<UserDetails user={user} key={user.id}  />);
+                                        return (<UserDetails user={user} key={user.id} />);
 
                                     })}
                                 </tbody>
