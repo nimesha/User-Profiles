@@ -16,14 +16,13 @@ const UserModal = (props) => {
             <Modal.Header closeButton >
                 <Modal.Title id="contained-modal-title-vcenter">
                     {props.type === 'create' && 'Add New User'}
-                    {props.type === 'update' && 'Update User Details'}
+                    {props.type === 'update' && 'Update  Details'}
                     
           </Modal.Title>
             </Modal.Header>
             <Modal.Body className="px-5">
                 {props.type === 'create' && <UserAdd />}
                 {props.type === 'update' && <UserUpdate user={props.user} />}
-                { JSON.stringify(props, null, 2) }
             </Modal.Body>
         </Modal>
     );
