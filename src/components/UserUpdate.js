@@ -9,7 +9,7 @@ import schema from '../helpers/validation/user';
 
 
 
-const UserUpdate = ({user}) => {
+const UserUpdate = ({ user }) => {
 
     const { dispatch } = useContext(UserContext);
     const [messageState, setMessageState] = useState(false);
@@ -17,8 +17,9 @@ const UserUpdate = ({user}) => {
 
     useEffect(() => {
         console.log();
-        setValue("firstName", user.firstName? user.firstName: "");
-        setValue("lastName", user.lastName? user.lastName : "");
+        setValue("firstName", user.firstName ? user.firstName : "");
+        setValue("lastName", user.lastName ? user.lastName : "");
+        setValue("id", user.id);
 
     }, []);
 
@@ -43,7 +44,7 @@ const UserUpdate = ({user}) => {
                     user.profilePic = '';
                 }
                 user.contact = user.countryCode + user.contact;
-                dispatch({ type: 'ADD_USER', user });
+                dispatch({ type: 'UPDATE_USER', user });
                 setMessageState(true);
                 e.target.reset()
             } catch (error) {
@@ -189,6 +190,11 @@ const UserUpdate = ({user}) => {
                 </div>
 
                 <div className="col-12 mt-4 float-right">
+                    <input
+                        className="form-control"
+                        name="id"
+                        ref={register()}
+                    />
                     <input type="submit" value="Save User" className="btn btn-primary float-right" />
                 </div>
 

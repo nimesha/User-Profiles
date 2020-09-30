@@ -15,7 +15,10 @@ export const userReducer = (state, action) => {
             }
             ]
         case 'UPDATE_USER':
-            return state;
+            let index = state.findIndex(item => item.id === action.user.id)
+            state[index] = action.user;
+            return [...state];
+            
         case 'REMOVE_USER':
             return state.filter(user => user.id !== action.id);
         default:
