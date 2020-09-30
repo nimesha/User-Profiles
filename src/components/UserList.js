@@ -13,7 +13,7 @@ const UserList = () => {
             <div className="p-5">
                 <div className="row py-3   top-background">
                     <div className="col-12 px-0 ">
-                        <h3 className="text-center text-white pt-2">Listed User Profiles</h3>
+                        <h3 className="text-center text-white pt-2">Profiles List</h3>
 
                         <Button className="btn btn-primary btn-border-dark float-right mr-4" onClick={() => setModalShow(true)}>
                             Add New User
@@ -50,7 +50,7 @@ const UserList = () => {
                                 </tbody>
                             </table>
                         ) : (
-                                <div classNameName="empty">There are no users to list.</div>
+                                <div className="col-12"><p className="text-center mt-4">There are no users to list.</p></div>
                             )}
                 </div>
             </div>
