@@ -13,13 +13,18 @@ const UserAdd = () => {
 
     const { dispatch } = useContext(UserContext);
     const [messageState, setMessageState] = useState(false);
-    const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(schema) });
+    const { register, handleSubmit, errors, setValue } = useForm({ resolver: yupResolver(schema) });
+
+
+    useEffect(() => {
+        setValue("dob", '2020-10-01');
+    }, []);
 
     useEffect(() => {
         if (messageState) {
             const timer = setTimeout(() => {
                 setMessageState(false)
-            }, 3000);
+            }, 2000);
             return () => clearTimeout(timer);
         }
 
@@ -27,6 +32,7 @@ const UserAdd = () => {
 
     const onSubmit = (user, e) => {
 
+       
         const addtoContext = async () => {
             try {
                 if (user.profilePic[0]) {
@@ -35,10 +41,10 @@ const UserAdd = () => {
                 } else {
                     user.profilePic = '';
                 }
-                user.contact = user.countryCode + user.contact;
                 dispatch({ type: 'ADD_USER', user });
                 setMessageState(true);
                 e.target.reset()
+                setValue("dob", '2020-10-01');
             } catch (error) {
                 alert("TODO : Need to add global error handler");
             }
@@ -142,7 +148,8 @@ const UserAdd = () => {
                             name="dob"
                             type="date"
                             ref={register}
-
+                           
+             
                         />
                         <small className="form-text text-danger"> {errors.dob && errors.dob.message}</small>
                     </div>
@@ -152,9 +159,7 @@ const UserAdd = () => {
                     <div className="custom-file mt-4">
                         <input
                             className="custom-file-input"
-                            ref={register({
-                                required: "Required"
-                            })}
+                            ref={register()}
                             type="file"
                             name="profilePic"
                             accept="image/png, image/jpeg" />
