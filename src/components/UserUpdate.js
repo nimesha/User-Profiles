@@ -6,15 +6,7 @@ import countryCodes from '../helpers/CountryCodes.json';
 import uuid from 'uuid/v4';
 import { yupResolver } from '@hookform/resolvers';
 import schema from '../helpers/validation/user';
-
-
-
-
-// const defaultValues = {
-//     countryCode :'+375'
-//   };
-
-
+import moment from 'moment';
 
 
 const UserUpdate = ({ user }) => {
@@ -30,15 +22,16 @@ const UserUpdate = ({ user }) => {
         setValue("contact", user.contact ? user.contact : "");
         setValue("countryCode", user.countryCode ? user.countryCode : "");
         setValue("address", user.address ? user.address : "");
+        setValue("dob", moment(user.dob).format('YYYY-MM-DD'));
         setValue("id", user.id);
     }, []);
-
+    
 
     useEffect(() => {
         if (messageState) {
             const timer = setTimeout(() => {
                 setMessageState(false)
-            }, 3000);
+            }, 2000);
             return () => clearTimeout(timer);
         }
 
@@ -212,7 +205,7 @@ const UserUpdate = ({ user }) => {
                         ref={register()}
                         type="hidden"
                     />
-                    <input type="submit" value="Save User" className="btn btn-primary float-right" />
+                    <input type="submit" value="Update User" className="btn btn-primary float-right" />
                 </div>
 
             </div>
